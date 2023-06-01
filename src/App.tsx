@@ -1,26 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  
+  const userAPI = () => {
+    return new Promise<any>((resolve ,reject) => {
+      return setTimeout(() => {
+        resolve({name: 'Sanskruti'});
+      }, 1000);
+   })
+ };
+
+  const nonAsyn = () => {
+    setTimeout(() => {
+       console.log('from non asyn')
+    },1000);
+  }
+ 
+ const getUserData = async () => {
+  //const userData = await userAPI();
+  //console.log('userData' ,userData)
+
+  console.log('test before')
+  nonAsyn()
+  console.log('test after')
+ }
+
+  const [title , setTitle ] = useState('not change');
+  useEffect( () => {
+    getUserData()
+    
+  }, [])
+
+
+return (
+  <div>
+    use effect {title}
+  </div>
+
+ );
+
 }
 
 export default App;
